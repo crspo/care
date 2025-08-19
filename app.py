@@ -3,7 +3,7 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 
 def create_app():
     app = Flask(__name__)
-    app.secret_key = "change-me"
+    app.secret_key = "change-me too"
     
     @app.route("/")
     def index():
