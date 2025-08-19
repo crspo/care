@@ -12,16 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Optimize images
-        run: |
-          npm install sharp
-          npm run optimize-images
-
-      - name: Replace original images
-        run: |
-          rm -rf static/images
-          mv static/images-optimized static/images
-
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
