@@ -1,27 +1,20 @@
-app:
-  name: care-app
-  containerPort: 5000
 image:
-  repository: crspo/care
+  repository: your-dockerhub-username/care-app
   tag: latest
   pullPolicy: IfNotPresent
 
 service:
-  type: ClusterIP
   port: 80
+  targetPort: 5000
 
 ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: careinourhand.com.au
-      paths:
-        - path: /
-          pathType: Prefix
+    - careinourhand.com.au
+    - www.careinourhand.com.au
   tls:
-    - hosts:
-        - careinourhand.com.au
-      secretName: care-tls
-
-resources: {}
+    enabled: true
+    secretName: care-app-tls
+    issuerName: letsencrypt-prod
 
