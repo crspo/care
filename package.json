@@ -1,4 +1,10 @@
-"scripts": {
-  "optimize-images": "node scripts/optimize-images.js"
+{
+    "name": "care",
+    "version": "1.0.0",
+    "scripts": {
+        "optimize-images": "node scripts/optimize.js"
+    },
+    "dependencies": {
+        "sharp": "^0.32.0"
+    }
 }
-
