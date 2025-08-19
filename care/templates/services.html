@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% from "macros/ui.html" import navbar, flash_messages %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  {{ navbar(
+      brand_logo_path='images/logo.png',
+      brand_href=url_for('index'),
+      nav_items=[
+        {'href': url_for('index') + '#services', 'label': 'Services'},
+        {'href': url_for('about'), 'label': 'About'},
+        {'href': url_for('contact'), 'label': 'Contact'}
+      ],
+      current_path=request.path
+  ) }}
+
+  {{ flash_messages() }}
+<section class="py-5 text-center bg-light">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Our Services</h1>
+    <p class="lead text-muted">Compassionate care tailored to your needs — explore our support options below.</p>
+  </div>
+</section>
+<ul class="nav nav-tabs justify-content-center mt-4" id="servicesTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="nursing-tab" data-bs-toggle="tab" data-bs-target="#nursing" type="button" role="tab">Nursing Support</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="ndis-tab" data-bs-toggle="tab" data-bs-target="#ndis" type="button" role="tab">NDIS Core Support</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="private-tab" data-bs-toggle="tab" data-bs-target="#private" type="button" role="tab">Private Care</button>
+  </li>
+</ul>
+<div class="tab-content py-4 container" id="servicesTabContent">
+  <!-- Nursing Support -->
+  <div class="tab-pane fade show active" id="nursing" role="tabpanel">
+    <h3>Nursing Support</h3>
+    <p>Our qualified nurses provide in-home clinical care, medication management, wound dressing, and chronic condition support. We prioritize dignity, comfort, and continuity of care.</p>
+    <ul>
+      <li>Medication administration</li>
+      <li>Post-operative care</li>
+      <li>Wound and catheter management</li>
+      <li>Health assessments and monitoring</li>
+    </ul>
+  </div>
+
+  <!-- NDIS Core Support -->
+  <div class="tab-pane fade" id="ndis" role="tabpanel">
+    <h3>NDIS Core Support</h3>
+    <p>We offer personalized assistance under the NDIS framework, helping participants with daily living, community access, and personal care routines.</p>
+    <ul>
+      <li>Assistance with daily activities</li>
+      <li>Transport and community access</li>
+      <li>Meal preparation and household tasks</li>
+      <li>Personal care and hygiene support</li>
+    </ul>
+  </div>
+
+  <!-- Private Care -->
+  <div class="tab-pane fade" id="private" role="tabpanel">
+    <h3>Private Care</h3>
+    <p>Flexible, client-directed care for individuals and families seeking tailored support outside government programs. We adapt to your schedule, preferences, and health needs.</p>
+    <ul>
+      <li>Hourly or live-in care options</li>
+      <li>Companionship and respite care</li>
+      <li>Disability and aged care support</li>
+      <li>Custom care plans and coordination</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
