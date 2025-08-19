@@ -1,0 +1,37 @@
+{# templates/macros/about.html #}
+{% macro about_section(full=False) -%}
+<section id="about" class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="fw-bold mb-4">About Us</h1>
+        <p class="lead text-secondary">
+          We combine clinical expertise with a genuine human touch.
+          Our team is committed to personalised care, accessibility,
+          and cultural understanding.
+        </p>
+        {% if full %}
+        <p>
+          From NDIS Core Support to specialised nursing and private care,
+          we pride ourselves on delivering compassionate, qualified
+          services to meet each individual’s needs.
+        </p>
+        <p>
+          Our mission is to empower individuals to live with dignity,
+          comfort, and independence through tailored services and genuine care.
+        </p>
+        {% else %}
+        <a href="{{ url_for('about') }}" class="btn btn-primary mt-3">
+          Read More
+        </a>
+        {% endif %}
+      </div>
+      <div class="col-lg-6">
+        <img src="{{ url_for('static', filename='images/about-hero.jpg') }}"
+             alt="About our team"
+             class="img-fluid rounded shadow-sm">
+      </div>
+    </div>
+  </div>
+</section>
+{%- endmacro %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% from "macros/ui.html" import navbar, flash_messages %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+  {{ navbar(
+      brand_logo_path='images/logo.png',
+      brand_href=url_for('index'),
+      nav_items=[
+        {'href': url_for('index') + '#services', 'label': 'Services'},
+        {'href': url_for('about'), 'label': 'About'},
+        {'href': url_for('contact'), 'label': 'Contact'}
+      ],
+      current_path=request.path
+  ) }}
+
+  {{ flash_messages() }}
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h1 class="fw-bold mb-4 text-center">Get in Touch</h1>
+          <p class="text-secondary text-center mb-5">
+            Have a question, feedback, or want to work with us? We’d love to hear from you.
+          </p>
+
+          <form class="row g-4" method="post" action="{{ url_for('contact') }}">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Jane Doe" required>
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="jane@example.com" required>
+            </div>
+            <div class="col-12">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" id="subject" name="subject" class="form-control" placeholder="How can we help?" required>
+            </div>
+            <div class="col-12">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" name="message" rows="5" class="form-control" placeholder="Write your message here..." required></textarea>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary btn-lg px-5">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
