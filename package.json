@@ -1,0 +1,4 @@
+"scripts": {
+  "optimize-images": "node scripts/optimize-images.js"
+}
+
