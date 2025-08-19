@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: self-hosted
+    runs-on: [self-hosted, flask]
 
     steps:
       - name: Checkout code
@@ -20,11 +20,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-app:${{ github.sha }} .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-app:${{ github.sha }}
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
@@ -44,8 +44,6 @@ jobs:
 
       - name: Delete existing deployment (if exists)
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=$(pwd)/kubeconfig.yaml
           kubectl get deployment care-app --namespace default && \
           kubectl delete deployment care-app --namespace default || \
           echo "No existing deployment to delete"
