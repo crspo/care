@@ -10,7 +10,7 @@ frontend:
 
 backend:
   image:
-    repository: your-dockerhub-username/care-backend
+    repository: chandansyd05/care-backend
     tag: latest
     pullPolicy: IfNotPresent
   service:
