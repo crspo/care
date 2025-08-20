@@ -1,6 +1,6 @@
 frontend:
   image:
-    repository: crspo/care-frontend
+    repository: chandansyd05/care-frontend
     tag: latest
     pullPolicy: IfNotPresent
   service:
