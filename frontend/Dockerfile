@@ -9,5 +9,5 @@ RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:stable-alpine
-COPY --from=builder /app/dist/your-app-name /usr/share/nginx/html
+COPY --from=builder /app/dist/temp-angular /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
