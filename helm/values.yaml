@@ -1,6 +1,6 @@
 frontend:
   image:
-    repository: your-dockerhub-username/care-frontend
+    repository: crspo/care-frontend
     tag: latest
     pullPolicy: IfNotPresent
   service:
