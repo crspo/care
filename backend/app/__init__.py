@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from app.routes.contact import contact_bp
+from app.routes.contacts import contact_bp
 from app.utils.error_handlers import register_error_handlers
 
 def create_app():
