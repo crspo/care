@@ -1,0 +1,8 @@
+<div class="card h-100 text-center p-3">
+  <div *ngIf="icon" class="mb-2">
+    <img [src]="icon" alt="{{ title }} icon" width="40" height="40" />
+  </div>
+  <h5>{{ title }}</h5>
+  <p *ngIf="description">{{ description }}</p>
+</div>
+<p>service-card works!</p>

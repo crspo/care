@@ -1,0 +1,9 @@
+<section class="hero" [ngStyle]="{ 'background-image': 'url(' + imagePath + ')' }">
+  <div class="overlay" [ngStyle]="{ 'opacity': overlay }"></div>
+  <div class="text-center text-white py-5">
+    <h1>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+    <a class="btn btn-primary" [href]="ctaHref">{{ ctaText }}</a>
+  </div>
+</section>
+

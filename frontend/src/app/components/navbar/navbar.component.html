@@ -1,0 +1,11 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="brandHref">
+    <img [src]="brandLogoPath" alt="Logo" height="40">
+  </a>
+  <ul class="navbar-nav ms-auto">
+    <li class="nav-item" *ngFor="let item of navItems">
+      <a class="nav-link" [routerLink]="item.href">{{ item.label }}</a>
+    </li>
+  </ul>
+</nav>
+
