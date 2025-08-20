@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: {{ .Release.Name }}-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: {{ .Release.Name }}-backend
   template:
     metadata:
       labels:
-        app: backend
+        app: {{ .Release.Name }}-backend
     spec:
       containers:
         - name: backend
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.backend.service.targetPort }}
+            - containerPort: {{ .Values.backend.containerPort }}
 

@@ -1,12 +1,3 @@
-backend:
-  image:
-    repository: your-dockerhub-username/care-backend
-    tag: latest
-    pullPolicy: IfNotPresent
-  service:
-    port: 5000
-    targetPort: 5000
-
 frontend:
   image:
     repository: your-dockerhub-username/care-frontend
@@ -15,6 +6,17 @@ frontend:
   service:
     port: 80
     targetPort: 80
+  containerPort: 80
+
+backend:
+  image:
+    repository: your-dockerhub-username/care-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 5000
+    targetPort: 5000
+  containerPort: 5000
 
 ingress:
   enabled: true

@@ -1,21 +1,22 @@
 {{- if .Values.ingress.enabled }}
+{{- $root := . }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-ingress
+  name: {{ $root.Release.Name }}-ingress
   annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.tls.issuerName }}
+    cert-manager.io/cluster-issuer: {{ $root.Values.ingress.tls.issuerName }}
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: {{ $root.Values.ingress.className }}
   tls:
     - hosts:
-        {{- range .Values.ingress.hosts }}
+        {{- range $root.Values.ingress.hosts }}
         - {{ . }}
         {{- end }}
-      secretName: {{ .Values.ingress.tls.secretName }}
+      secretName: {{ $root.Values.ingress.tls.secretName }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range $root.Values.ingress.hosts }}
     - host: {{ . }}
       http:
         paths:
@@ -23,16 +24,16 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}-frontend
+                name: {{ $root.Release.Name }}-frontend
                 port:
-                  number: {{ $.Values.frontend.service.port }}
+                  number: {{ $root.Values.frontend.service.port }}
           - path: /api/
             pathType: Prefix
             backend:
               service:
-                name: {{ .Release.Name }}-backend
+                name: {{ $root.Release.Name }}-backend
                 port:
-                  number: {{ $.Values.backend.service.port }}
+                  number: {{ $root.Values.backend.service.port }}
     {{- end }}
 {{- end }}
 

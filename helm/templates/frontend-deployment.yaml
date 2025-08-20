@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Release.Name }}-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: {{ .Release.Name }}-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ .Release.Name }}-frontend
     spec:
       containers:
         - name: frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
           imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.frontend.service.targetPort }}
+            - containerPort: {{ .Values.frontend.containerPort }}
 
