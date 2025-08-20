@@ -10,5 +10,4 @@ RUN npm run build --configuration production
 # Stage 2: Serve with Nginx
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist/your-app-name /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+COPY nginx.conf /etc/nginx/nginx.conf
