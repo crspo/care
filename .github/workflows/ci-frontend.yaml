@@ -31,19 +31,16 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
       
       - name: Validate cluster access
-        env:
-          KUBECONFIG: kubeconfig.yaml
-        run: kubectl cluster-info
+        run: kubectl cluster-info  --kubeconfig ~/.kube/config
 
       - name: Delete existing Deployment
         run: kubectl delete deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
 
       - name: Helm upgrade frontend
-        env:
-          KUBECONFIG: kubeconfig.yaml
         run: |
           helm upgrade --install care-app ./helm \
             --namespace default \
