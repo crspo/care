@@ -21,7 +21,7 @@ jobs:
 
       - name: Build backend image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:latest ./backend
           docker push ${{ secrets.DOCKER_USERNAME }}/care-backend:latest
       
 
