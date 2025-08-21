@@ -35,7 +35,7 @@ jobs:
       
       - name: Validate cluster access
         env:
-          KUBECONFIG: kubeconfig.yml
+          KUBECONFIG: kubeconfig.yaml
         run: kubectl cluster-info
 
       - name: Delete existing Deployment
@@ -43,7 +43,7 @@ jobs:
 
       - name: Helm upgrade frontend
         env:
-          KUBECONFIG: kubeconfig.yml
+          KUBECONFIG: kubeconfig.yaml
         run: |
           helm upgrade --install care-app ./helm \
             --namespace default \
