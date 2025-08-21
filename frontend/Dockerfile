@@ -1,29 +1,17 @@
-# Stage 1: Build the Angular application
-FROM node:18-alpine AS build
+# Stage 1: Build Angular app
+FROM node:18 AS build
 WORKDIR /app
-
-# Copy package files and install dependencies
-COPY package.json package-lock.json ./
-RUN npm install
-
-# Copy source code and build for production
 COPY . .
-RUN npm run build --prod
+RUN npm install && npm run build --configuration=production
 
-# Stage 2: Serve the application with NGINX
-FROM nginx:1.21-alpine
+# Stage 2: Serve with Nginx
+FROM nginx:stable-alpine
+# Remove default config
+RUN rm /etc/nginx/conf.d/default.conf
 
-# The new, critical step: Remove default NGINX files
-# This ensures that NGINX's welcome page is gone.
-RUN rm -rf /usr/share/nginx/html/*
+# Copy Angular build output
+COPY --from=build /app/dist/care-app/browser /usr/share/nginx/html
 
-# Copy the built Angular app from the 'build' stage
-# This now copies into an empty directory
-COPY --from=build /app/dist/care-app /usr/share/nginx/html
-
-# Copy the custom NGINX configuration file
+# Copy custom Nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80 and run NGINX in the foreground
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]

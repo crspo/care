@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "temp-angular:build:production"
+              "buildTarget": "care-app:build:production"
             },
             "development": {
-              "buildTarget": "temp-angular:build:development"
+              "buildTarget": "care-app:build:development"
             }
           },
           "defaultConfiguration": "development"
