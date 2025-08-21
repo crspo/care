@@ -1,7 +1,7 @@
 frontend:
   image:
     repository: chandansyd05/care-frontend
-    tag: 709b82e49b74daef8a3617569afbe94bb0f6b97b
+    tag: latest
   service:
     port: 80
     targetPort: 80
@@ -10,7 +10,7 @@ frontend:
 backend:
   image:
     repository: chandansyd05/care-backend
-    tag: 6b842d24a05f030a7429d35d4a243e3f3abc6efc
+    tag: latest
   service:
     port: 5000
     targetPort: 5000

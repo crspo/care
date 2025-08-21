@@ -21,16 +21,8 @@ jobs:
 
       - name: Build backend image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:${{ github.sha }} ./backend
-
-      - name: Push backend image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/care-backend:${{ github.sha }}
-
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-backend:latest
       
 
       - name: Install Helm
@@ -52,5 +44,5 @@ jobs:
           helm upgrade --install care-app ./helm \
             --namespace default \
             --set backend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-backend \
-            --set backend.image.tag=${{ github.sha }}
+            --set backend.image.tag=latest
 
