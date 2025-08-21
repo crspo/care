@@ -31,8 +31,7 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=$(pwd)/kubeconfig.yaml
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig.yaml
       
       - name: Validate cluster access
         env:
@@ -43,9 +42,14 @@ jobs:
         run: kubectl delete deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
 
       - name: Helm upgrade frontend
+        env:
+          KUBECONFIG: kubeconfig.yml
         run: |
           helm upgrade --install care-app ./helm \
             --namespace default \
             --set frontend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-frontend \
             --set frontend.image.tag=latest
+       #verify deployment
+      - name: Verify Deployment
+        run: kubectl rollout status deployment/flask-app --namespace default --kubeconfig ~/.kube/config
 
