@@ -31,16 +31,21 @@ jobs:
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
+      
 
-      - name: Set up Helm
+      - name: Install Helm
         uses: azure/setup-helm@v3
         with:
-          version: 'latest'
+          version: v3.13.1  # or latest stable
 
       - name: Configure kubeconfig
         run: |
           echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
           export KUBECONFIG=$(pwd)/kubeconfig.yaml
+
+      # Delete existing deployment
+      - name: Delete existing Deployment
+        run: kubectl delete deployment/care-app-backend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
 
       - name: Helm upgrade backend
         run: |
