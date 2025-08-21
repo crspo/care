@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TempAngular</title>
+  <title>Care in Our Hand</title>
+  <script>
+  	window['env'] = {
+    	apiBaseUrl: 'http://care-app-backend.default.svc.cluster.local'
+  	};
+  </script>
+
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <!-- Optional static banner -->
+  <div style="background: #333; color: #fff; padding: 1rem; text-align: center;">
+    🚀 CareApp Deployment Portal — Powered by Angular & Helm
+  </div>
+
+  <!-- Angular mounts here -->
   <app-root></app-root>
 </body>
+
 </html>

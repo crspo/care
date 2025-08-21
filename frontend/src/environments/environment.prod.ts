@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://www.careinourhand.com.au/api'
+  apiBaseUrl: window['env']['apiBaseUrl'] || 'http://localhost:3000'
 };
 
