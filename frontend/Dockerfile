@@ -12,15 +12,17 @@ RUN npm run build --prod
 
 # Stage 2: Serve the application with NGINX
 FROM nginx:1.21-alpine
-# Copy the custom NGINX configuration file.
-# This file will tell NGINX where to find your Angular app's files.
-# It replaces the default NGINX config.
-COPY nginx.conf /etc/nginx/nginx.conf
+
+# The new, critical step: Remove default NGINX files
+# This ensures that NGINX's welcome page is gone.
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built Angular app from the 'build' stage
-# Make sure the path matches your project's output directory
-# 'your-app-name' is usually the name of your Angular project in angular.json
-COPY --from=build /app/dist/temp-angular /usr/share/nginx/html
+# This now copies into an empty directory
+COPY --from=build /app/dist/your-app-name /usr/share/nginx/html
+
+# Copy the custom NGINX configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80 and run NGINX in the foreground
 EXPOSE 80
