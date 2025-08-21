@@ -1,7 +1,6 @@
 frontend:
   image:
     repository: chandansyd05/care-frontend
-    tag: latest
     pullPolicy: IfNotPresent
   service:
     port: 80
@@ -11,7 +10,6 @@ frontend:
 backend:
   image:
     repository: chandansyd05/care-backend
-    tag: latest
     pullPolicy: IfNotPresent
   service:
     port: 5000
