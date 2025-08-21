@@ -11,8 +11,6 @@ RUN npm run build --configuration=production
 # Stage 2: Serve with Nginx
 FROM nginx:stable-alpine
 
-# Remove default config to avoid conflicts
-RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy Angular build and custom Nginx config
 COPY --from=builder /app/dist/temp-angular /usr/share/nginx/html

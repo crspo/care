@@ -1,7 +1,8 @@
 frontend:
   image:
     repository: chandansyd05/care-frontend
-    tag: latest
+    tag: 2
+    pullPolicy: Always
   service:
     port: 80
     targetPort: 80
@@ -10,7 +11,8 @@ frontend:
 backend:
   image:
     repository: chandansyd05/care-backend
-    tag: latest
+    tag: 2
+    pullPolicy: Always
   service:
     port: 5000
     targetPort: 5000
