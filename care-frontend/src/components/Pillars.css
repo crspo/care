@@ -1,0 +1,77 @@
+/* Pillars section styling for modern, accessible look */
+.pillars {
+  background: #F3E5F5;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.pillars h2 {
+  font-size: 2rem;
+  color: #4527A0;
+  margin-bottom: 2rem;
+}
+
+.pillars-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pillar-card {
+  background: #fff;
+  border-left: 6px solid #B39DDB;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(106,27,154,0.08);
+  padding: 2rem 1.5rem;
+  width: 300px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: left;
+}
+
+.pillar-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(106,27,154,0.15);
+}
+
+.pillar-card h3 {
+  color: #6A1B9A;
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+}
+
+.pillar-card p {
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.pillars {
+  background-color: #e3f2fd;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.pillars ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.pillar-item {
+  background-color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pillar-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,31 @@
+frontend:
+  image:
+    repository: chandansyd05/care-frontend
+    tag: latest
+    pullPolicy: Always
+  service:
+    port: 80
+    targetPort: 80
+  containerPort: 80
+
+backend:
+  image:
+    repository: chandansyd05/care-backend
+    tag: latest
+    pullPolicy: Always
+  service:
+    port: 5000
+    targetPort: 5000
+  containerPort: 5000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - careinourhand.com.au
+    - www.careinourhand.com.au
+  tls:
+    enabled: true
+    secretName: care-app-tls
+    issuerName: letsencrypt-prod
+

@@ -1,0 +1,30 @@
+# Node modules and Python cache
+node_modules/
+__pycache__/
+*.pyc
+
+# Logs and temp files
+*.log
+*.swp
+*.tmp
+*.bak
+
+# Git and Docker artifacts
+.git/
+.gitignore
+.dockerignore
+Dockerfile*
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Angular build output
+dist/
+
