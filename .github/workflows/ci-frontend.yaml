@@ -33,8 +33,8 @@ jobs:
 
       - name: Build and push frontend image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest ./frontend
-          docker push ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/care-frontend:latest ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/care-frontend:latest
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -43,21 +43,22 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
-          export KUBECONFIG=$(pwd)/kubeconfig.yaml
-      
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
       - name: Validate cluster access
-        run: kubectl cluster-info  --kubeconfig ~/.kube/config
+        run: kubectl cluster-info
 
       - name: Delete existing Deployment
-        run: kubectl delete deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
+        run: kubectl delete deployment/care-app-frontend --namespace default --ignore-not-found
 
       - name: Helm upgrade frontend
         run: |
           helm upgrade --install care-app ./helm \
             --namespace default \
-            --set frontend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-frontend \
+            --wait \
+            --set frontend.image.repository=${{ secrets.DOCKERHUB_USERNAME }}/care-frontend \
             --set frontend.image.tag=latest
-       #verify deployment
+
       - name: Verify Deployment
-        run: kubectl rollout status deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config
+        run: kubectl rollout status deployment/care-app-frontend --namespace default
