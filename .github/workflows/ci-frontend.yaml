@@ -1,0 +1,63 @@
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  build-and-push:
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push frontend image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest ./frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.13.1
+
+      - name: Configure kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
+      
+      - name: Validate cluster access
+        run: kubectl cluster-info  --kubeconfig ~/.kube/config
+
+      - name: Delete existing Deployment
+        run: kubectl delete deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
+
+      - name: Helm upgrade frontend
+        run: |
+          helm upgrade --install care-app ./helm \
+            --namespace default \
+            --set frontend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-frontend \
+            --set frontend.image.tag=latest
+       #verify deployment
+      - name: Verify Deployment
+        run: kubectl rollout status deployment/care-app-frontend --namespace default --kubeconfig ~/.kube/config

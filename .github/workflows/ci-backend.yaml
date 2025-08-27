@@ -1,0 +1,47 @@
+name: Build, Push, and Deploy Backend
+
+on:
+  push:
+    branches: [ dev ]
+  workflow_dispatch:
+
+jobs:
+  backend-deploy:
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build backend image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:latest ./backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-backend:latest
+      
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.13.1  # or latest stable
+
+      - name: Configure kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
+
+      # Delete existing deployment
+      - name: Delete existing Deployment
+        run: kubectl delete deployment/care-app-backend --namespace default --kubeconfig ~/.kube/config --ignore-not-found
+
+      - name: Helm upgrade backend
+        run: |
+          helm upgrade --install care-app ./helm \
+            --namespace default \
+            --set backend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-backend \
+            --set backend.image.tag=latest
