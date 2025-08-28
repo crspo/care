@@ -22,11 +22,11 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/care-backend:latest ./backend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/care-backend:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-backend:latest ./backend
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-backend:latest
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v2
         with:
           version: v3.13.1
 

@@ -35,8 +35,8 @@ jobs:
 
       - name: Build and push frontend image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/care-frontend:latest ./frontend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/care-frontend:latest
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest ./frontend
+          docker push ${{ secrets.DOCKER_USERNAME }}/care-frontend:latest
 
       - name: Set up Helm
         uses: azure/setup-helm@v2
