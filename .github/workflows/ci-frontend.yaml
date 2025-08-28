@@ -45,14 +45,18 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=$(pwd)/kubeconfig.yaml
 
       - name: Validate cluster access
         run: kubectl cluster-info
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Delete existing Deployment
         run: kubectl delete deployment/care-app-frontend --namespace default --ignore-not-found
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Helm upgrade frontend
         run: |
@@ -61,6 +65,10 @@ jobs:
             --wait \
             --set frontend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-frontend \
             --set frontend.image.tag=latest
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Verify Deployment
         run: kubectl rollout status deployment/care-app-frontend --namespace default
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml

@@ -32,14 +32,17 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
 
       - name: Validate cluster access
         run: kubectl cluster-info
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Delete existing Deployment
         run: kubectl delete deployment/care-app-backend --namespace default --ignore-not-found
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Helm upgrade backend
         run: |
@@ -48,10 +51,10 @@ jobs:
             --wait \
             --set backend.image.repository=${{ secrets.DOCKER_USERNAME }}/care-backend \
             --set backend.image.tag=latest
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
 
       - name: Verify Deployment
         run: kubectl rollout status deployment/care-app-backend --namespace default
-
-      - name: Clean up old images (optional)
-        run: |
-          docker image prune -af
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
