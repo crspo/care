@@ -4,25 +4,25 @@ import './Hero.css';
 
 const slides = [
   {
-    image: '/pictures/hero-bg1.jpg',
+    image: '/pictures/hero-bg1.avif',
     heading: 'Supporting Your Independence',
     subheading: 'Personalised care and guidance for every step of your journey.',
     button: { text: 'Explore Services', action: 'services' }
   },
   {
-    image: '/pictures/hero-bg2.jpg',
+    image: '/pictures/hero-bg2.avif',
     heading: 'Empowering Your Choices',
     subheading: 'We help you make informed decisions for a better quality of life.',
     button: { text: 'Contact Us', action: 'contact' }
   },
   {
-    image: '/pictures/hero-bg3.jpg',
+    image: '/pictures/hero-bg3.avif',
     heading: 'Inclusive and Diverse',
     subheading: 'Celebrating every individual and supporting all communities.',
     button: { text: 'Our Pillars', action: 'pillars' }
   },
   {
-    image: '/pictures/hero-bg4.jpg',
+    image: '/pictures/hero-bg4.avif',
     heading: 'Care You Can Trust',
     subheading: 'Experienced professionals dedicated to your wellbeing.',
     button: { text: 'Explore Services', action: 'services' }

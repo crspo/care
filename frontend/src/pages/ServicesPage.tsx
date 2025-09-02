@@ -2,24 +2,24 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const services = [
-	{
-		title: 'Core Support',
-		description:
-			'We provide essential daily living support tailored to your needs.',
-		image: '/pictures/core-support.jpg',
-	},
-	{
-		title: 'Nursing Support',
-		description:
-			'Professional nursing care and health management for all ages.',
-		image: '/pictures/nursing-support.jpg',
-	},
-	{
-		title: 'Private Care',
-		description:
-			'Discreet and personalized private care services in your home.',
-		image: '/pictures/private-care.jpg',
-	},
+	 {
+	 	title: 'Core Support',
+	 	description:
+	 		'We provide essential daily living support tailored to your needs.',
+	 	image: '/pictures/core-support.avif',
+	 },
+	 {
+	 	title: 'Nursing Support',
+	 	description:
+	 		'Professional nursing care and health management for all ages.',
+	 	image: '/pictures/nursing-support.avif',
+	 },
+	 {
+	 	title: 'Private Care',
+	 	description:
+	 		'Discreet and personalized private care services in your home.',
+	 	image: '/pictures/private-care.avif',
+	 },
 ];
 
 export default function ServicesPage() {

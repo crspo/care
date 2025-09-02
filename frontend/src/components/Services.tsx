@@ -5,17 +5,17 @@ const services = [
   {
     title: 'Core Support',
     description: 'We provide essential daily living support tailored to your needs.',
-    image: '/pictures/core-support.jpg'
+    image: '/pictures/core-support.avif'
   },
   {
     title: 'Nursing Support',
     description: 'Professional nursing care and health management for all ages.',
-    image: '/pictures/nursing-support.jpg'
+    image: '/pictures/nursing-support.avif'
   },
   {
     title: 'Private Care',
     description: 'Discreet and personalized private care services in your home.',
-    image: '/pictures/private-care.jpg'
+    image: '/pictures/private-care.avif'
   }
 ];
 
