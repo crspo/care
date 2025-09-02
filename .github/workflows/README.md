@@ -41,6 +41,6 @@ On every push to the `feature` branch, the following steps are executed:
     Deploys or updates the frontend using Helm, setting the image repository and tag.
 
 12. **Verify Deployment**  
-    Waits for the new deployment to become ready.
+    Waits for the new deployment to become ready...
 
 ---
