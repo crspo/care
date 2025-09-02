@@ -16,7 +16,7 @@ const bannerData = [
 		title: 'Compassionate Care',
 		description: 'We provide heartfelt support and understanding to every client.',
 		image: '/pictures/icon-compassion.png',
-		color: '#4caf50'
+		color: '#4caf50',
 	},
 	{
 		title: 'Experienced Team',

@@ -7,6 +7,13 @@ html {
   box-sizing: inherit;
 }
 
+/* Responsive font size for mobile */
+@media (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -43,11 +50,25 @@ body {
   background: #EDE7F6; /* NDIS theme light purple */
   color: #213547;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+    font-size: 1rem;
+  }
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5em;
+  }
 }
 
 button {

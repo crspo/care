@@ -9,11 +9,25 @@ body {
   text-align: center;
 }
 
+@media (max-width: 600px) {
+  #root {
+    padding: 0.5rem;
+    max-width: 100vw;
+  }
+}
+
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 4em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    height: 2.5em;
+    padding: 0.5em;
+  }
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
@@ -51,9 +65,24 @@ body {
   gap: 1rem;
   padding: 2rem;
 }
+
+@media (max-width: 600px) {
+  .banner-wrapper {
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+}
 .banner-item {
   flex: 1 1 280px;
   max-width: 300px;
+}
+
+@media (max-width: 600px) {
+  .banner-item {
+    max-width: 100vw;
+    min-width: 0;
+  }
 }
 .banner-item a {
   display: block;
