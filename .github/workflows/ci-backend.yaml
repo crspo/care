@@ -3,8 +3,7 @@ name: Build and Deploy Backend
 on:
   push:
     branches: [ feature ]
-    paths:
-      - 'backend/**'
+    
 
 jobs:
   build-and-push:
