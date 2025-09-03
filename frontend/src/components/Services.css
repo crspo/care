@@ -76,3 +76,18 @@
 .service-card {
   border-color: var(--border-color, #B39DDB); /* Use NDIS purple as default */
 }
+
+/* Hide details by default and only show when the card has the expanded class.
+   This ensures only the active card's details are visible even if markup exists. */
+.service-details {
+  display: none;
+  transition: max-height 0.28s ease, opacity 0.28s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+.service-card.expanded .service-details {
+  display: block;
+  max-height: 500px; /* generous max for content */
+  opacity: 1;
+}

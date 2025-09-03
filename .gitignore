@@ -31,3 +31,13 @@ Thumbs.db
 *.tgz
 charts/
 values.yaml.backup
+
+# Python virtual envs and caches
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+pip-wheel-metadata/
+
+# env files (already included .env but catch other env variants)
+.env.*

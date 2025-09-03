@@ -4,7 +4,7 @@ import './Hero.css';
 
 const slides = [
   {
-    image: '/pictures/hero-bg1.avif',
+    image: '/pictures/hero-bg.avif',
     heading: 'Supporting Your Independence',
     subheading: 'Personalised care and guidance for every step of your journey.',
     button: { text: 'Explore Services', action: 'services' }

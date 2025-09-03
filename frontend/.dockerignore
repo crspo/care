@@ -1,0 +1,22 @@
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Local env files
+.env
+.env.*
+
+# Editor dirs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# npm/yarn lockfiles are typically small but not needed in context
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
