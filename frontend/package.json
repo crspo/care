@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+  "test:jsdom": "node jsdom-tests/*.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
