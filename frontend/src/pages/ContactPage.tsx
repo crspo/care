@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import ServiceCard from '../components/ServiceCard';
+import BannerGroup from '../components/BannerGroup';
 import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 
@@ -20,7 +20,8 @@ const bannerData = [
 		title: 'Multicultural Support',
 		description: 'We celebrate diversity and offer services in multiple languages.',
 		image: '/pictures/icon-multicultural.png',
-		color: '#B39DDB'
+ 		color: '#B39DDB',
+ 		details: 'We provide culturally responsive supports and language options to ensure accessible, inclusive care.'
 	}
 ];
 
@@ -29,11 +30,7 @@ export default function ContactPage() {
 		<>
 			<Navbar />
 			<div className="banner-wrapper">
-				{bannerData.map((banner, idx) => (
-					<div key={idx} className="banner-item">
-						<ServiceCard {...banner} />
-					</div>
-				))}
+				<BannerGroup items={bannerData} />
 			</div>
 			<div className="padding">
 				<h1>Contact Us</h1>

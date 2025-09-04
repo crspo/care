@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Make sure the Navbar component exists at the specified path or update the path accordingly
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ServiceCard from './components/ServiceCard';
+import BannerGroup from './components/BannerGroup';
 import Pillars from './components/Pillars';
 import Services from './components/Services';
 import ContactForm from './components/ContactForm';
@@ -17,6 +17,7 @@ const bannerData = [
 		description: 'We provide heartfelt support and understanding to every client.',
 		image: '/pictures/icon-compassion.png',
 		color: '#4caf50',
+	details: 'Our team offers compassionate support that recognises each person\'s story and provides tailored assistance with dignity.'
 	},
 	{
 		title: 'Experienced Team',
@@ -24,12 +25,13 @@ const bannerData = [
 		image: '/pictures/icon-experienced.png',
 		color: '#2196f3'
 	},
-	{
-		title: 'Multicultural Support',
-		description: 'We celebrate diversity and offer services in multiple languages.',
-		image: '/pictures/icon-multicultural.png',
-		color: '#B39DDB'
-	}
+		{
+			title: 'Multicultural Support',
+			description: 'We celebrate diversity and offer services in multiple languages.',
+			image: '/pictures/icon-multicultural.png',
+			color: '#B39DDB',
+			details: 'We provide culturally responsive supports and language options to ensure accessible, inclusive care.'
+		}
 ];
 
 function App() {
@@ -43,11 +45,7 @@ function App() {
 							<Navbar />
 							<Hero />
 							<div className="banner-wrapper">
-								{bannerData.map((banner, idx) => (
-									<div key={idx} className="banner-item">
-										<ServiceCard {...banner} />
-									</div>
-								))}
+								<BannerGroup items={bannerData} />
 							</div>
 							<Pillars />
 							<Services />

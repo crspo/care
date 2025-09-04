@@ -124,3 +124,17 @@ p {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Banner details hidden by default; shown when .expanded class is present */
+.banner-details {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease, opacity 0.28s ease;
+  opacity: 0;
+}
+.banner-card.expanded .banner-details {
+  display: block;
+  max-height: 400px;
+  opacity: 1;
+}

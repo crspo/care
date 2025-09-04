@@ -88,3 +88,29 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Hide details by default; only show when expanded class is present */
+.pillar-details {
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease, opacity 0.28s ease;
+  opacity: 0;
+  margin-top: 0.75rem;
+}
+.pillar-card.expanded .pillar-details {
+  display: block;
+  max-height: 400px; /* generous max */
+  opacity: 1;
+}
+
+.pillar-short {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .pillar-card {
+    width: 98vw;
+    padding: 1rem;
+  }
+}
