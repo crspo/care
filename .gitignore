@@ -48,3 +48,5 @@ pip-wheel-metadata/
 *.crt
 *.sqlite3
 .DS_Store
+tmp_contact_test.py
+tmp_contact_check.py
