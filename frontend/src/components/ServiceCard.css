@@ -33,18 +33,27 @@
   }
   .banner-left { padding-left: 0.25rem; }
   .banner-middle { display: block; }
-  .banner-right {
-    display: block;
-  padding: 0.75rem 1rem; /* reduce right/left padding so band feels tighter */
-
-/* Medium screens and below: stack the banner section columns so left/middle/right
-   appear in a single column and banner cards take full available width. This
-   prevents the three-column band from overflowing on tablets and small laptops. */
-@media (max-width: 999px) {
-  .banner-section {
-  display: block;
-    padding: 1.5rem 0;
+    .banner-right {
+      display: block;
+      padding: 0.75rem 1rem; /* reduce right/left padding so band feels tighter */
+    }
   }
+
+  /* Medium screens and below: stack the banner section columns so left/middle/right
+     appear in a single column and banner cards take full available width. This
+     prevents the three-column band from overflowing on tablets and small laptops. */
+  @media (max-width: 999px) {
+    .banner-section {
+      display: block;
+      padding: 1.5rem 0;
+    }
+  
+    .banner-left,
+    .banner-middle,
+    .banner-right {
+      width: 100%;
+      box-sizing: border-box;
+    }
   .banner-left,
   .banner-middle,
   .banner-right {
@@ -101,16 +110,15 @@
     transition: all 180ms ease-in-out;
   }
 }
-  }
-  .team-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; max-width: 380px; }
-  .team-grid img { width: 100%; height: 130px; object-fit: cover; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
-  .banner-right h3 { margin-top: 0; color: #4527A0; }
-  .testimonial { background: #fff; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
-  .testimonial .quote { font-style: italic; color: #333; margin: 0 0 0.5rem 0; }
-  .testimonial .author { margin: 0; font-weight: 600; color: #6b2fb2; }
-  .banner-cta { margin-top: 1rem; background: rgba(106,27,154,0.06); padding: 1rem; border-radius: 10px; text-align: center; }
-  .cta-btn { display: inline-block; margin-top: 0.5rem; background: #6b2fb2; color: #fff; padding: 0.6rem 0.9rem; border-radius: 8px; text-decoration: none; }
-}
+
+.team-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; max-width: 380px; }
+.team-grid img { width: 100%; height: 130px; object-fit: cover; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+.banner-right h3 { margin-top: 0; color: #4527A0; }
+.testimonial { background: #fff; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+.testimonial .quote { font-style: italic; color: #333; margin: 0 0 0.5rem 0; }
+.testimonial .author { margin: 0; font-weight: 600; color: #6b2fb2; }
+.banner-cta { margin-top: 1rem; background: rgba(106,27,154,0.06); padding: 1rem; border-radius: 10px; text-align: center; }
+.cta-btn { display: inline-block; margin-top: 0.5rem; background: #6b2fb2; color: #fff; padding: 0.6rem 0.9rem; border-radius: 8px; text-decoration: none; }
 
 @media (max-width: 600px) {
   .banner-wrapper {
