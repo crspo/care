@@ -1,16 +1,56 @@
 .banner-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2.5rem;
-  margin: 3rem 0 3.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0.25rem auto;
   padding: 0 1rem;
+}
+
+.banner-section {
+  background: linear-gradient(180deg, rgba(237,231,246,0.6), rgba(237,231,246,0.9));
+  padding: 2.5rem 0 2.5rem 0;
+  width: 100%;
+  /* Narrow the band so the three internal columns sit centered on the page */
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.banner-left { width: 100%; }
+.banner-right {
+  display: none;
+}
+
+@media (min-width: 1000px) {
+  .banner-section {
+    display: grid;
+  /* explicit 3-column band: left content, center gallery, right testimonials */
+  grid-template-columns: 1fr 380px 340px;
+  gap: 1rem; /* reduce empty space between columns */
+    align-items: start;
+    padding: 3rem 0;
+  }
+  .banner-left { padding-left: 0.25rem; }
+  .banner-middle { display: block; }
+  .banner-right {
+    display: block;
+  padding: 0.75rem 1rem; /* reduce right/left padding so band feels tighter */
+  }
+  .team-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; max-width: 380px; }
+  .team-grid img { width: 100%; height: 130px; object-fit: cover; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+  .banner-right h3 { margin-top: 0; color: #4527A0; }
+  .testimonial { background: #fff; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+  .testimonial .quote { font-style: italic; color: #333; margin: 0 0 0.5rem 0; }
+  .testimonial .author { margin: 0; font-weight: 600; color: #6b2fb2; }
+  .banner-cta { margin-top: 1rem; background: rgba(106,27,154,0.06); padding: 1rem; border-radius: 10px; text-align: center; }
+  .cta-btn { display: inline-block; margin-top: 0.5rem; background: #6b2fb2; color: #fff; padding: 0.6rem 0.9rem; border-radius: 8px; text-decoration: none; }
 }
 
 @media (max-width: 600px) {
   .banner-wrapper {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
     margin: 1rem 0 1.5rem 0;
     padding: 0 0.2rem;
   }
@@ -30,6 +70,8 @@
 }
 
 .banner-card {
+  position: relative;
+  overflow: hidden;
   opacity: 0;
   transform: translateY(30px) scale(0.96);
   animation: fadeInUpScale 0.8s ease forwards;
@@ -39,11 +81,47 @@
   background: #fff;
   border: 2px solid #B39DDB;
   border-radius: 16px;
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
-  width: 300px;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem; /* reduced horizontal padding for tighter band */
+  width: 100%;
+  /* keep a sensible height so absolute-positioned flip faces do not collapse the container */
+  min-height: 260px;
   box-shadow: 0 6px 24px rgba(106,27,154,0.10);
   transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
+/* Flip card layout */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.banner-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-face {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  /* top-align content but keep horizontal centering so text doesn't touch rounded edges */
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+  box-sizing: border-box;
+  overflow: auto; /* allow inner scrolling if content is taller than the card */
+  z-index: 3; /* ensure faces render above the overlay */
+}
+.card-front { transform: rotateY(0deg); }
+.card-back { transform: rotateY(180deg); overflow: auto; }
+
+/* Ensure banner-details are visible on the back face */
+.card-back .banner-details { display: block; opacity: 1; max-height: none; }
 
 .banner-card:hover {
   transform: translateY(-8px) scale(1.05);
@@ -60,6 +138,18 @@
   background: #EDE7F6;
   box-shadow: 0 2px 8px rgba(106,27,154,0.08);
 }
+
+/* Decorative overlay so text remains readable over background images */
+.banner-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.75));
+  z-index: 1;
+  pointer-events: none;
+}
+
+.banner-card > * { position: relative; z-index: 2; }
 
 .card-header {
   display: flex;
@@ -78,9 +168,9 @@ h3 {
 }
 
 p {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.7;
   color: #333;
   text-align: center;
 }
@@ -90,8 +180,19 @@ p {
     gap: 1.2rem;
   }
   .banner-card {
-    width: 90vw;
-    max-width: 340px;
+  width: 90vw;
+  max-width: 560px;
+  }
+}
+
+/* Keep the left column (cards) narrow on very wide screens so it doesn't push the band outwards */
+@media (min-width: 1200px) {
+  .banner-wrapper {
+  /* let the wrapper fill the left band fully so cards can expand to the available width */
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+  width: 100%;
+  max-width: none;
   }
 }
 @media (max-width: 600px) {
@@ -101,9 +202,10 @@ p {
     gap: 1.5rem;
   }
   .banner-card {
-    width: 98vw;
-    max-width: 360px;
-    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  width: 98vw;
+  max-width: 520px;
+  padding: 1.2rem 0.7rem 1rem 0.7rem;
+  background-image: none !important; /* disable heavy backgrounds on small screens */
   }
 }
 
@@ -133,8 +235,7 @@ p {
   transition: max-height 0.28s ease, opacity 0.28s ease;
   opacity: 0;
 }
-.banner-card.expanded .banner-details {
-  display: block;
-  max-height: 400px;
-  opacity: 1;
-}
+  .banner-left { padding-left: 0.1rem; grid-column: 1; }
+  .banner-middle { display: block; grid-column: 2; align-self: start; }
+  .banner-right { display: block; grid-column: 3; padding: 0.2rem 2rem; }
+  

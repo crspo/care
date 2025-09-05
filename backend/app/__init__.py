@@ -1,5 +1,5 @@
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from app.routes.contacts import contact_bp
 from app.utils.error_handlers import register_error_handlers
@@ -18,7 +18,16 @@ def create_app():
 
     CORS(app)  # Allow frontend to call APIs
 
-    app.register_blueprint(contact_bp, url_prefix='/api')
+    @app.route('/')
+    def index():
+        # Minimal root route to help during local development and avoid 404 JSON from Flask
+        return jsonify({
+            'message': 'Care backend running',
+            'contact': '/contact (POST)'
+        })
+
+    # Register contact blueprint at root so the route is available as /contact
+    app.register_blueprint(contact_bp)
     register_error_handlers(app)
 
     return app

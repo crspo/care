@@ -53,3 +53,20 @@
 .contact-form button:hover {
   background-color: #388e3c;
 }
+
+.form-status {
+  min-height: 1.4rem;
+  margin-top: 0.25rem;
+  color: #2e2e2e;
+}
+.form-status.error {
+  color: #a12f2f;
+}
+.form-status.success {
+  color: #2f7a3e;
+}
+
+.contact-form button[disabled], .contact-form button[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

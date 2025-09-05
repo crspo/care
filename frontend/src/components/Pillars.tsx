@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Pillars.css';
 
 const pillars = [
@@ -23,20 +23,39 @@ const pillars = [
 ];
 
 export default function Pillars() {
-	const [expanded, setExpanded] = useState<number | null>(null);
+	// allow multiple expanded cards to persist
+		const [expandedSet, setExpandedSet] = useState<Set<number>>(new Set());
+		const [visibleSet, setVisibleSet] = useState<Set<number>>(new Set());
+		const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-	// optional: reveal animation using intersection observer
+	function toggleExpanded(idx: number) {
+		setExpandedSet(prev => {
+			const next = new Set(prev);
+			if (next.has(idx)) next.delete(idx);
+			else next.add(idx);
+			return next;
+		});
+	}
+
 	useEffect(() => {
-		const items = document.querySelectorAll('.pillar-item');
 		const obs = new IntersectionObserver(
 			entries => {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) entry.target.classList.add('visible');
+				setVisibleSet(prev => {
+					const next = new Set(prev);
+					entries.forEach(entry => {
+						const idxAttr = (entry.target as HTMLElement).getAttribute('data-idx');
+						if (!idxAttr) return;
+						const i = parseInt(idxAttr, 10);
+						if (entry.isIntersecting) next.add(i);
+					});
+					return next;
 				});
 			},
 			{ threshold: 0.2 }
 		);
-		items.forEach(i => obs.observe(i));
+
+		const els = Array.from(document.querySelectorAll('.pillar-item')) as HTMLElement[];
+		els.forEach(el => obs.observe(el));
 		return () => obs.disconnect();
 	}, []);
 
@@ -44,28 +63,31 @@ export default function Pillars() {
 		<section className="pillars">
 			<h2>Our Pillars</h2>
 			<div className="pillars-grid">
-				{pillars.map((pillar, idx) => (
-					<div
-						key={idx}
-						className={`pillar-card pillar-item${expanded === idx ? ' expanded' : ''}`}
-						tabIndex={0}
-						role="button"
-						aria-expanded={expanded === idx}
-						onClick={() => setExpanded(curr => (curr === idx ? null : idx))}
-						onKeyDown={e => {
-							if (e.key === 'Enter' || e.key === ' ') setExpanded(curr => (curr === idx ? null : idx));
-						}}
-					>
-						<h3>{pillar.title}</h3>
-						<p className="pillar-short">{pillar.description}</p>
-						{/* details only rendered when expanded to keep DOM small */}
-						{expanded === idx && (
-							<div className="pillar-details">
-								<p>{pillar.details}</p>
-							</div>
-						)}
-					</div>
-				))}
+				{pillars.map((pillar, idx) => {
+					const isVisible = visibleSet.has(idx);
+					const isExpanded = expandedSet.has(idx);
+					const className = `pillar-card pillar-item${!isVisible ? ' pre-hidden' : ''}${isExpanded ? ' expanded' : ''}`;
+
+								return (
+									<div key={idx} data-idx={idx} ref={el => { cardsRef.current[idx] = el; }} className={className}>
+										<button
+											type="button"
+											className="pillar-toggle"
+											aria-expanded={isExpanded}
+											aria-controls={`pillar-details-${idx}`}
+											onClick={() => toggleExpanded(idx)}
+										>
+											<h3>{pillar.title}</h3>
+											<p className="pillar-short">{pillar.description}</p>
+										</button>
+										{isExpanded && (
+											<div id={`pillar-details-${idx}`} className="pillar-details">
+												<p>{pillar.details}</p>
+											</div>
+										)}
+									</div>
+								);
+				})}
 			</div>
 		</section>
 	);

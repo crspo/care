@@ -12,10 +12,14 @@
 }
 
 .pillars-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
+  /* Use CSS Grid so cards live in fixed columns; expanding one card grows its row without shifting columns */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  /* Make all grid rows equal-height so cards align perfectly */
+  grid-auto-rows: 1fr;
+  align-items: stretch; /* stretch items to fill the row height */
+  justify-items: center;
 }
 
 @media (max-width: 600px) {
@@ -37,9 +41,16 @@
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(106,27,154,0.08);
   padding: 2rem 1.5rem;
-  width: 300px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 360px; /* keep a readable line-length */
+  /* Fill the grid cell so all cards share the same height */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.25s, box-shadow 0.25s, opacity 0.4s;
   text-align: left;
+  position: relative; /* needed when raising z-index */
 }
 
 .pillar-card:hover {
@@ -55,23 +66,7 @@
 
 .pillar-card p {
   color: #333;
-  font-size: 1rem;
   margin: 0;
-}
-
-.pillars {
-  background-color: #e3f2fd;
-  padding: 3rem 2rem;
-  text-align: center;
-}
-
-.pillars ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
 }
 
 .pillar-item {
@@ -79,14 +74,17 @@
   padding: 1rem 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1; /* baseline visible so collapsing won't hide the card */
+  transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+  position: relative; /* ensure stacking context when expanded */
 }
 
-.pillar-item.visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Hide only before the card is revealed by the intersection observer */
+.pillar-item.pre-hidden {
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 /* Hide details by default; only show when expanded class is present */
@@ -98,10 +96,39 @@
   opacity: 0;
   margin-top: 0.75rem;
 }
+
+/* When a pillar is expanded, make sure it stays visible above siblings */
+.pillar-card.expanded {
+  z-index: 5;
+}
+
 .pillar-card.expanded .pillar-details {
   display: block;
   max-height: 400px; /* generous max */
   opacity: 1;
+}
+
+/* Ensure expanded card stays visible (some browsers may reflow/animate) */
+.pillar-card.expanded,
+.pillar-card.expanded.pillar-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-duration: 0.35s; /* slightly slower so it doesn't vanish mid-transition */
+}
+
+/* Don't hide the pillar card on click; blur the short summary slightly instead */
+.pillar-card .pillar-short {
+  transition: filter 0.22s ease, opacity 0.22s ease;
+}
+.pillar-card.expanded .pillar-short {
+  filter: blur(1px);
+  opacity: 0.95;
+}
+
+/* When toggling, temporarily disable transitions to avoid flicker caused by reflow */
+.pillar-card.no-transition,
+.pillar-card.no-transition * {
+  transition: none !important;
 }
 
 .pillar-short {
@@ -109,8 +136,14 @@
 }
 
 @media (max-width: 600px) {
-  .pillar-card {
-    width: 98vw;
-    padding: 1rem;
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: stretch;
   }
-}
+    .pillar-card {
+      width: 100%;
+      padding: 1.2rem 0.8rem;
+      max-width: none;
+    }
+  }
