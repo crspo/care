@@ -36,6 +36,71 @@
   .banner-right {
     display: block;
   padding: 0.75rem 1rem; /* reduce right/left padding so band feels tighter */
+
+/* Medium screens and below: stack the banner section columns so left/middle/right
+   appear in a single column and banner cards take full available width. This
+   prevents the three-column band from overflowing on tablets and small laptops. */
+@media (max-width: 999px) {
+  .banner-section {
+  display: block;
+    padding: 1.5rem 0;
+  }
+  .banner-left,
+  .banner-middle,
+  .banner-right {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  /* place the team gallery and testimonials below the cards on smaller screens */
+  .banner-middle,
+  .banner-right {
+    display: block;
+    margin-top: 1rem;
+  }
+  .banner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 0.6rem;
+  }
+  .banner-item {
+    width: 100%;
+    max-width: 720px;
+  }
+  .banner-card {
+    width: 98%;
+    max-width: 720px;
+  }
+  /* prefer a CSS grid for the team gallery so images lay out predictably */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+    justify-items: center;
+    align-items: start;
+  }
+  .team-grid img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Explicit order so stack appears: cards -> team gallery -> testimonials */
+  .banner-left { order: 1; }
+  .banner-middle { order: 2; }
+  .banner-right { order: 3; }
+
+  /* subtle transitions to avoid layout jank when resizing */
+  .banner-section,
+  .banner-wrapper,
+  .banner-card,
+  .team-grid {
+    transition: all 180ms ease-in-out;
+  }
+}
   }
   .team-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; max-width: 380px; }
   .team-grid img { width: 100%; height: 130px; object-fit: cover; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
