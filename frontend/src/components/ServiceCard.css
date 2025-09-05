@@ -235,6 +235,12 @@ p {
   transition: max-height 0.28s ease, opacity 0.28s ease;
   opacity: 0;
 }
+/* Support non-flip banner variant used in jsdom tests: show details when .expanded is present */
+.banner-card.expanded .banner-details {
+  display: block;
+  max-height: 500px;
+  opacity: 1;
+}
   .banner-left { padding-left: 0.1rem; grid-column: 1; }
   .banner-middle { display: block; grid-column: 2; align-self: start; }
   .banner-right { display: block; grid-column: 3; padding: 0.2rem 2rem; }

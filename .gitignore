@@ -41,3 +41,10 @@ pip-wheel-metadata/
 
 # env files (already included .env but catch other env variants)
 .env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.sqlite3
+.DS_Store
