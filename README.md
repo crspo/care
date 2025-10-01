@@ -57,9 +57,6 @@ Notes
 - By default `backend/.env` may set `MAIL_ENABLED=false` to avoid sending real emails in development. Set `MAIL_ENABLED=true` and provide valid SMTP credentials to enable sending.
 - The Flask contact endpoint is mounted at `/contact` and returns JSON responses. On SMTP failure the backend returns `{ "error": "Failed to send email", "details": "..." }`.
 
-Contributing
-------------
-- Create a branch, make changes, run tests, and open a PR against `main`.
 
 License
 -------
