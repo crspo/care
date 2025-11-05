@@ -20,17 +20,7 @@ Backend
 
    python -m pip install -r requirements.txt
 
-3. Copy or create a `.env` file in `backend/` with SMTP settings (if you want emails to send). Example keys:
-
-   SMTP_HOST=smtp.example.com
-   SMTP_PORT=587
-   SMTP_USER=you@example.com
-   SMTP_PASS=yourpassword
-   SMTP_USE_TLS=true
-   MAIL_FROM=noreply@example.com
-   MAIL_ENABLED=false
-
-4. Run the backend (development server):
+3. Run the backend (development server):
 
    # from repo root
    Set-Location -Path './backend'
